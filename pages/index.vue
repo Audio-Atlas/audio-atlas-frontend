@@ -1,8 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+</script>
 
 <template>
   <div>
     <h1>/</h1>
-    <MyTestComp />
+    <DownloadButton url="https://example.com"/>
   </div>
 </template>
