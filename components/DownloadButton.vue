@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import DownloadIcon from 'vue-material-design-icons/Download.vue'
-
 const props = defineProps<{
     url: string
 }>()
@@ -28,7 +26,7 @@ const onDownload = () => {
             text-white
         "
         @click="onDownload">
-            <DownloadIcon/>
+            <Icon name="material-symbols:download" class="size-8" />
             MP3
         </button>
     </div>

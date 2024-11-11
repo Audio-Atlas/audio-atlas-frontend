@@ -6,5 +6,6 @@
     <h1>/</h1>
     <MyTestComp />
     <LinkButtonGroup />
+    <DownloadButton url="https://github.com" />
   </div>
 </template>
