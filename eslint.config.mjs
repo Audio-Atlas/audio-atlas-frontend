@@ -5,5 +5,10 @@ import tailwind from "eslint-plugin-tailwindcss";
 
 export default withNuxt([
   ...tailwind.configs["flat/recommended"],
-  // Your custom configs here
+  {
+    rules: {
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+    }
+  }
 ]);
