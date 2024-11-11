@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
+    "@nuxt/icon",
   ],
 
   colorMode: {

@@ -4,5 +4,6 @@
   <div>
     <h1>/</h1>
     <MyTestComp />
+    <LinkButtonGroup />
   </div>
 </template>
