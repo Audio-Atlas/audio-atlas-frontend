@@ -4,6 +4,7 @@
 <template>
   <div>
     <h1>/</h1>
-    <DownloadButton url="https://example.com"/>
+    <MyTestComp />
+    <LinkButtonGroup />
   </div>
 </template>
