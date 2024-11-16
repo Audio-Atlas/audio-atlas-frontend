@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
@@ -7,5 +6,6 @@
     <MyTestComp />
     <LinkButtonGroup />
     <DownloadButton url="https://github.com" />
+    <HomeSearchBar />
   </div>
 </template>
