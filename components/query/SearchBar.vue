@@ -1,0 +1,36 @@
+<template>
+  <div class="relative h-[43px] w-[464px] items-center">
+    <Input
+      id="search"
+      v-model="query"
+      type="text"
+      placeholder="Find the perfect sound effect..."
+      class="size-full rounded-none border-muted-foreground pl-4 pr-14 text-base"
+      @keyup.enter="searchHandler"
+    />
+    <span
+      class="absolute inset-y-0 end-0 flex items-center justify-center px-6"
+    >
+      <Icon
+        name="mdi:magnify"
+        class="size-6 text-muted-foreground"
+      />
+    </span>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { Input } from "@/components/ui/input";
+
+const route = useRoute();
+const query = route.query.search as string || "";
+
+onMounted(() => {
+  console.log(query || "No query found");
+});
+
+const searchHandler = () => {
+  // TODO: Implement search functionality
+  console.log(query || "No query found");
+};
+</script>
