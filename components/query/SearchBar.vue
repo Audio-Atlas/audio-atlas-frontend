@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-[43px] w-[464px] items-center">
+  <div class="relative h-[40px] w-[464px] items-center">
     <Input
       id="search"
       v-model="query"
@@ -23,14 +23,20 @@
 import { Input } from "@/components/ui/input";
 
 const route = useRoute();
-const query = route.query.search as string || "";
+const query = ref(route.query.search as string || "");
 
-onMounted(() => {
-  console.log(query || "No query found");
-});
+const searchHandler = async () => {
+  if (!query.value) return;
 
-const searchHandler = () => {
-  // TODO: Implement search functionality
-  console.log(query || "No query found");
+  await navigateTo({
+    path: "/query",
+    query: {
+      search: query.value,
+    }
+  }, {
+    // This should be a bug that external has to be true for route query to work
+    // Hydration issue ??
+    // external: true,
+  });
 };
 </script>

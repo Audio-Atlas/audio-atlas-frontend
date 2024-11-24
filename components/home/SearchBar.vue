@@ -23,8 +23,18 @@
 import { Input } from "@/components/ui/input";
 
 const query = ref("");
-const searchHandler = () => {
-  // TODO: Implement search functionality
-  console.log(query.value);
+const searchHandler = async () => {
+  if (!query.value) return;
+
+  await navigateTo({
+    path: "/query",
+    query: {
+      search: query.value,
+    }
+  }, {
+    // This should be a bug that external has to be true for route query to work
+    // Hydration issue ??
+    external: true,
+  });
 };
 </script>
