@@ -5,7 +5,7 @@
       v-model="query"
       type="text"
       placeholder="Find the perfect sound effect..."
-      class="size-full rounded-none border-muted-foreground pl-6 pr-20 text-xl"
+      class="size-full rounded-none border-muted-foreground bg-transparent pl-6 pr-20 text-xl"
       @keyup.enter="searchHandler"
     />
     <span
