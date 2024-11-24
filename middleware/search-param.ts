@@ -4,7 +4,6 @@ export default defineNuxtRouteMiddleware((to) => {
   }
 
   const query = to.query.search;
-  console.log(query);
   if (!query) {
     return navigateTo("/")
   }
