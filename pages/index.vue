@@ -10,7 +10,7 @@
 <template>
   <div class="flex h-full flex-col items-center justify-center"> 
     <div
-      class="absolute top-0 flex w-full items-center justify-between px-8 pt-6"
+      class="absolute top-0 flex h-20 w-full items-center justify-between px-8 pt-6"
     >
       <div>
         <span class="text-2xl">Audio Atlas</span>
@@ -20,7 +20,6 @@
       </Transition>
       <LinkButtonGroup />
     </div>
-    <HomeLogo />
     <Transition name="fade-up-out">
       <HomeSearchBar v-if="!query" :query="query" />
     </Transition>
