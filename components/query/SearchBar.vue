@@ -13,7 +13,7 @@
     >
       <Icon
         name="mdi:magnify"
-        class="size-10 cursor-pointer text-muted-foreground hover:bg-white"
+        class="size-6 cursor-pointer text-muted-foreground transition-all hover:bg-white"
         @click="searchHandler"
       />
     </span>
