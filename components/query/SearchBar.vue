@@ -21,22 +21,18 @@
 
 <script setup lang="ts">
 import { Input } from "@/components/ui/input";
+import { useRouteQuery } from "@vueuse/router";
 
-const route = useRoute();
-const query = ref(route.query.search as string || "");
+const routeQuery = useRouteQuery("search");
+const query = ref("");
+
+onMounted(() => {
+  query.value = routeQuery.value as string || "";
+});
 
 const searchHandler = async () => {
   if (!query.value) return;
 
-  await navigateTo({
-    path: "/query",
-    query: {
-      search: query.value,
-    }
-  }, {
-    // This should be a bug that external has to be true for route query to work
-    // Hydration issue ??
-    // external: true,
-  });
+  await navigateTo(`/query?search=${query.value}`);
 };
 </script>
