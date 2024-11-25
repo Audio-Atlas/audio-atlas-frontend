@@ -22,4 +22,8 @@ body,
 #__nuxt {
   height: 100%;
 }
+
+body {
+  background-image: url("/imgs/gradient.png");
+}
 </style>

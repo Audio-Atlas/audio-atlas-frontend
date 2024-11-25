@@ -3,18 +3,12 @@
     <LinkButton>
       <!-- TODO: change to actual url -->
       <NuxtLink to="https://example.com">
-        <Icon
-          name="proicons:github"
-          class="size-8"
-        />
+        <Icon name="proicons:github" class="size-8" />
       </NuxtLink>
     </LinkButton>
     <LinkButton>
       <NuxtLink to="/about">
-        <Icon
-          name="mdi:information-outline"
-          class="size-8"
-        />
+        <Icon name="mdi:information-outline" class="size-8" />
       </NuxtLink>
     </LinkButton>
   </div>

@@ -1,9 +1,5 @@
 <template>
-  <Button
-    variant="ghost"
-    size="icon"
-    as-child
-  >
+  <Button variant="ghost" size="icon" as-child>
     <slot />
   </Button>
 </template>

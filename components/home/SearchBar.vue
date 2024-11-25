@@ -2,10 +2,10 @@
   <div class="relative h-[76px] w-[710px] items-center">
     <Input
       id="search"
-      v-model="query"
+      v-model="editQuery"
       type="text"
       placeholder="Find the perfect sound effect..."
-      class="size-full rounded-none border-muted-foreground pl-6 pr-20 text-xl"
+      class="size-full rounded-none border-muted-foreground bg-transparent pl-6 pr-20 text-xl"
       @keyup.enter="searchHandler"
     />
     <span
@@ -13,7 +13,8 @@
     >
       <Icon
         name="mdi:magnify"
-        class="size-10 text-muted-foreground"
+        class="size-10 cursor-pointer text-muted-foreground transition-all hover:bg-white"
+        @click="searchHandler"
       />
     </span>
   </div>
@@ -22,9 +23,14 @@
 <script setup lang="ts">
 import { Input } from "@/components/ui/input";
 
-const query = ref("");
-const searchHandler = () => {
-  // TODO: Implement search functionality
-  console.log(query.value);
+const editQuery = ref("");
+
+const searchHandler = async () => {
+  if (!editQuery.value) return;
+  const q = editQuery.value;
+  setTimeout(() => {
+    editQuery.value = "";
+  }, 500); // Clear the input after the animation finishes
+  await navigateTo(`/?q=${q}`);
 };
 </script>
