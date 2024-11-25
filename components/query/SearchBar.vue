@@ -21,16 +21,19 @@
 </template>
 
 <script setup lang="ts">
-  import { Input } from "@/components/ui/input";
-  const route = useRoute();
-  const query = ref(route.query.q as string || "");
+import { Input } from "@/components/ui/input";
+const route = useRoute();
+const query = ref((route.query.q as string) || "");
 
-  watch(() => route.query.q, (search) => {
+watch(
+  () => route.query.q,
+  (search) => {
     query.value = search as string;
-  });
+  },
+);
 
-  const searchHandler = async () => {
-    if (!query.value) return;
-    await navigateTo(`/?q=${query.value}`);
-  };
+const searchHandler = async () => {
+  if (!query.value) return;
+  await navigateTo(`/?q=${query.value}`);
+};
 </script>
