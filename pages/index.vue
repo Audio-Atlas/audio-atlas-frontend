@@ -16,13 +16,13 @@
         <span class="text-2xl">Audio Atlas</span>
       </div>
       <Transition name="fade-up-in">
-        <QuerySearchBar v-show="query" :query="query" />
+        <QuerySearchBar v-if="query" :query="query" />
       </Transition>
       <LinkButtonGroup />
     </div>
     <HomeLogo />
     <Transition name="fade-up-out">
-      <HomeSearchBar v-show="!query" :query="query" />
+      <HomeSearchBar v-if="!query" :query="query" />
     </Transition>
   </div>
 </template>
