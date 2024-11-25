@@ -13,26 +13,24 @@
     >
       <Icon
         name="mdi:magnify"
-        class="size-6 text-muted-foreground"
+        class="size-10 cursor-pointer text-muted-foreground hover:bg-white"
+        @click="searchHandler"
       />
     </span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Input } from "@/components/ui/input";
-import { useRouteQuery } from "@vueuse/router";
+  import { Input } from "@/components/ui/input";
+  const route = useRoute();
+  const query = ref(route.query.q as string || "");
 
-const routeQuery = useRouteQuery("search");
-const query = ref("");
+  watch(() => route.query.q, (search) => {
+    query.value = search as string;
+  });
 
-onMounted(() => {
-  query.value = routeQuery.value as string || "";
-});
-
-const searchHandler = async () => {
-  if (!query.value) return;
-
-  await navigateTo(`/query?search=${query.value}`);
-};
+  const searchHandler = async () => {
+    if (!query.value) return;
+    await navigateTo(`/?q=${query.value}`);
+  };
 </script>
