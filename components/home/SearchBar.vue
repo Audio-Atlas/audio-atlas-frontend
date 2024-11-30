@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-[76px] w-[710px] items-center">
+  <div class="fixed top-[calc(50vh-38px)] h-[76px] w-[710px] items-center">
     <Input
       id="search"
       v-model="editQuery"

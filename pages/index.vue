@@ -11,9 +11,9 @@ watch(
 </script>
 
 <template>
-  <div class="flex h-full flex-col items-center justify-center">
+  <div class="flex w-full flex-col items-center justify-center">
     <div
-      class="absolute top-0 flex h-20 w-full items-center justify-between px-8 pt-6"
+      class="sticky top-0 z-50 flex h-20 w-full items-center justify-between px-8 pt-6 backdrop-blur"
     >
       <div>
         <span class="text-2xl">Audio Atlas</span>
@@ -23,9 +23,14 @@ watch(
       </Transition>
       <LinkButtonGroup />
     </div>
-    <Transition name="fade-up-out">
-      <HomeSearchBar v-if="!query" :query="query" />
-    </Transition>
+    <div
+      class="relative flex min-h-[calc(100vh-5rem)] w-full flex-col items-center justify-center"
+    >
+      <Transition name="fade-up-out">
+        <HomeSearchBar v-if="!query" />
+      </Transition>
+      <QuerySearchResultsList v-if="query" :query="query" />
+    </div>
   </div>
 </template>
 
