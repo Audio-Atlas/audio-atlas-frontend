@@ -1,16 +1,14 @@
 <template>
-  <div class="fixed top-[calc(50vh-38px)] h-[76px] w-[710px] items-center">
+  <div class="h-[76px] w-[710px] items-center">
     <Input
       id="search"
       v-model="editQuery"
       type="text"
-      placeholder="Find the perfect sound effect..."
+      :placeholder="placeholders[placeholder]"
       class="size-full rounded-none border-muted-foreground bg-transparent pl-6 pr-20 text-xl"
       @keyup.enter="searchHandler"
     />
-    <span
-      class="absolute inset-y-0 end-0 flex items-center justify-center px-6"
-    >
+    <span class="absolute right-6 top-[100px]">
       <Icon
         name="mdi:magnify"
         class="size-10 cursor-pointer text-muted-foreground transition-all hover:bg-white"
@@ -24,6 +22,28 @@
 import { Input } from "@/components/ui/input";
 
 const editQuery = ref("");
+const placeholder = ref(0);
+const placeholders = [
+  "pshpshpshpshpsh",
+  "powww",
+  "pew pew",
+  "krreeee",
+  "tatata",
+  "brrrr",
+  "chkchk"
+];
+const placeholderCycleInterval = 2500;
+
+const cyclePlaceholders = () => {
+  setInterval(() => {
+    placeholder.value = (placeholder.value + 1) % placeholders.length;
+  }, placeholderCycleInterval);
+};
+
+onMounted(() => {
+  cyclePlaceholders();
+});
+
 
 const searchHandler = async () => {
   if (!editQuery.value) return;

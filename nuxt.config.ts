@@ -16,4 +16,5 @@ export default defineNuxtConfig({
     fallback: "dark",
     classSuffix: "",
   },
+
 });

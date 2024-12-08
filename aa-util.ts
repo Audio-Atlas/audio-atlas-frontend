@@ -1,7 +1,6 @@
 export interface Result {
     id: string;
     name: string;
-    duration: number;
     similarity: number;
 }
 
@@ -43,48 +42,21 @@ export const fetchSearchResults = async (count: number, query: string) => {
   }
 };
 
+export const getClipURl = (id: string, format: string) => {
+  return `${API_GET_CLIP_URL}${id}?format=${format}`;
+}
+
 export const fetchClip = async (id: string, format: string) => {
   try {
     if (!id || id.trim().length === 0) {
       return null;
     }
-    const res = await fetch(`${API_GET_CLIP_URL}${id}?format=${format}`);
+    const res = await fetch(getClipURl(id, format));
     return res.blob();
   } catch (e: any) {
     console.error("Failed to fetch clip:", e.message);
     return null;
   }
-};
-
-export const durationToMilliseconds = (duration: string) => {
-  if (!duration || duration.trim().length === 0 || !duration.includes(":") || !duration.includes(".")) {
-    return -1;
-  }
-  const [minutes, secondsMs] = duration.split(":");
-  const [seconds, ms] = secondsMs.split(".");
-  let msTotal:number = 0;
-  try {
-    const minNum = parseInt(minutes);
-    msTotal += minNum * 60 * 1000;
-  } catch (e: any) {
-    console.error("Failed to parse minutes "+duration+" :", e.message);
-    return -1;
-  }
-  try {
-    const secNum = parseInt(seconds);
-    msTotal += secNum * 1000;
-  } catch (e: any) {
-    console.error("Failed to parse seconds "+duration+" :", e.message);
-    return -1;
-  }
-  try {
-    const msNum = parseInt(ms);
-    msTotal += msNum;
-  } catch (e: any) {
-    console.error("Failed to parse milliseconds "+duration+" :", e.message);
-    return -1;
-  }
-  return msTotal;
 };
 
 // convert ms to seconds with 1 decimal place precision
@@ -93,7 +65,7 @@ export const millisecondsToSeconds = (ms: number) => {
 };
 
 
-export const downloadAudioClip = async (id: string, format: string) => {
+export const downloadAudioClip = async (id: string, name:string, format: string) => {
     const blob = await fetchClip(id, format);
     if (!blob) {
         console.error("Failed to download audio clip");
@@ -102,7 +74,21 @@ export const downloadAudioClip = async (id: string, format: string) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${id}.${format}`;
+    a.download = `${name}.${format}`;
     a.click();
     URL.revokeObjectURL(url);
 };
+
+export const cleanFilename = (filename: string) => {
+  // files are stored such as: foley_water_pour_onto_very_hot_metal_sheet_surface_steam_sizzle_bubble_fizzle_out_111202
+  // need to split by underscores and capitalize each word, remove random numbers
+  const words = filename.split("_");
+  let clean = "";
+  for (const word of words) {
+    if (word.length === 0 || !isNaN(Number(word))) {
+      continue;
+    }
+    clean += word.charAt(0).toUpperCase() + word.slice(1) + " ";
+  }
+  return clean.trim();
+}

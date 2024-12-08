@@ -24,6 +24,7 @@ body,
 }
 
 body {
-  background-image: url("/imgs/gradient.png");
+  background: rgb(32,22,46);
+  background: linear-gradient(131deg, rgb(44, 29, 65) 0%, rgb(24, 25, 53) 37%, rgb(29, 31, 59) 63%, rgb(39, 60, 95) 100%);
 }
 </style>

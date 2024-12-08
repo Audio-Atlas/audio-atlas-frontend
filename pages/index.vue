@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const route = useRoute();
 const query = ref((route.query.q as string) || "");
 
@@ -11,12 +12,20 @@ watch(
 </script>
 
 <template>
-  <div class="flex w-full flex-col items-center justify-center">
+  <div class="flex size-full flex-col items-center justify-start overflow-hidden">
     <div
-      class="sticky top-0 z-50 flex h-20 w-full items-center justify-between px-8 pt-6 backdrop-blur"
+      class="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between px-8 pt-6 backdrop-blur"
     >
       <div>
-        <span class="text-2xl">Audio Atlas</span>
+        <a
+          class="flex cursor-pointer flex-row flex-nowrap items-center justify-start"
+          href="/"
+        >
+          <img src="/imgs/AALogo.png" alt="Audio Atlas Logo" class="size-10 object-contain" >
+          
+          <span class="ml-2 text-2xl font-semibold"
+          >Audio Atlas</span>
+        </a>
       </div>
       <Transition name="fade-up-in">
         <QuerySearchBar v-if="query" :query="query" />
@@ -24,12 +33,25 @@ watch(
       <LinkButtonGroup />
     </div>
     <div
-      class="relative flex min-h-[calc(100vh-5rem)] w-full flex-col items-center justify-center"
+      class="relative flex h-screen w-full flex-col items-center justify-center"
     >
       <Transition name="fade-up-out">
-        <HomeSearchBar v-if="!query" />
+        <div v-if="!query" class="fixed flex flex-col top-[30vh]">
+          <h1 class="text-center text-4xl font-semibold mb-10">
+            Search for the perfect sound effect...
+          </h1>
+          <HomeSearchBar />
+          <a 
+            class="text-right text-base underline cursor-pointer text-blue-300 mt-2"
+            href="/about"
+          >
+            How does this work?
+          </a>
+        </div>
       </Transition>
-      <QuerySearchResultsList v-if="query" :query="query" />
+      <Transition name="fade-up-in">
+        <QuerySearchResultsList v-if="query" :query="query" />
+      </Transition>
     </div>
   </div>
 </template>
