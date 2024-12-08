@@ -5,7 +5,8 @@ on:
   pull_request:
     branches:
       - main
-
+    types:
+      - closed
 env:
   NUXT_APP_BASE_URL: /audio-atlas-frontend/
 
@@ -27,6 +28,7 @@ jobs:
           path: ./.output/public
   # Deployment job
   deploy:
+    if: github.event.pull_request.merged == true
     # Add a dependency to the build job
     needs: build
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
