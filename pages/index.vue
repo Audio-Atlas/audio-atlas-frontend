@@ -45,12 +45,11 @@ watch(
             Search for the perfect sound effect...
           </h1>
           <HomeSearchBar />
-          <a
-            class="mt-2 cursor-pointer text-right text-base text-blue-300 underline"
-            href="/about"
-          >
-            How does this work?
-          </a>
+          <div class="mt-2 flex items-center justify-end">
+            <NuxtLink to="/about" class="text-blue-300 underline">
+              How does this work?
+            </NuxtLink>
+          </div>
         </div>
       </Transition>
       <Transition name="fade-up-in">
