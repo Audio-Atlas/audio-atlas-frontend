@@ -18,9 +18,9 @@ watch(
       class="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between px-8 pt-6 backdrop-blur"
     >
       <div>
-        <a
+        <NuxtLink
           class="flex cursor-pointer flex-row flex-nowrap items-center justify-start"
-          href="/"
+          to="/"
         >
           <img
             src="/imgs/AALogo.png"
@@ -29,7 +29,7 @@ watch(
           />
 
           <span class="ml-2 text-2xl font-semibold">Audio Atlas</span>
-        </a>
+        </NuxtLink>
       </div>
       <Transition name="fade-up-in">
         <QuerySearchBar v-if="query" :query="query" />
