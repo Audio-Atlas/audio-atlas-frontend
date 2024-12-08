@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 const route = useRoute();
 const query = ref((route.query.q as string) || "");
 
@@ -12,7 +11,9 @@ watch(
 </script>
 
 <template>
-  <div class="flex size-full flex-col items-center justify-start overflow-hidden">
+  <div
+    class="flex size-full flex-col items-center justify-start overflow-hidden"
+  >
     <div
       class="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between px-8 pt-6 backdrop-blur"
     >
@@ -21,10 +22,13 @@ watch(
           class="flex cursor-pointer flex-row flex-nowrap items-center justify-start"
           href="/"
         >
-          <img src="/imgs/AALogo.png" alt="Audio Atlas Logo" class="size-10 object-contain" >
-          
-          <span class="ml-2 text-2xl font-semibold"
-          >Audio Atlas</span>
+          <img
+            src="/imgs/AALogo.png"
+            alt="Audio Atlas Logo"
+            class="size-10 object-contain"
+          />
+
+          <span class="ml-2 text-2xl font-semibold">Audio Atlas</span>
         </a>
       </div>
       <Transition name="fade-up-in">
@@ -36,13 +40,13 @@ watch(
       class="relative flex h-screen w-full flex-col items-center justify-center"
     >
       <Transition name="fade-up-out">
-        <div v-if="!query" class="fixed flex flex-col top-[30vh]">
-          <h1 class="text-center text-4xl font-semibold mb-10">
+        <div v-if="!query" class="fixed top-[30vh] flex flex-col">
+          <h1 class="mb-10 text-center text-4xl font-semibold">
             Search for the perfect sound effect...
           </h1>
           <HomeSearchBar />
-          <a 
-            class="text-right text-base underline cursor-pointer text-blue-300 mt-2"
+          <a
+            class="mt-2 cursor-pointer text-right text-base text-blue-300 underline"
             href="/about"
           >
             How does this work?

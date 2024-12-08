@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Result, APIResult } from '~/aa-util';
-import { fetchHealthCheck, fetchSearchResults } from '~/aa-util';
+import type { Result, APIResult } from "~/aa-util";
+import { fetchHealthCheck, fetchSearchResults } from "~/aa-util";
 
 const route = useRoute();
 const query = ref((route.query.q as string) || "");
@@ -69,21 +69,25 @@ const onSetPlaying = (audioId: string | null) => {
 const loadPage = async (page: number) => {
   console.log("Loading page", page);
 };
-
 </script>
 
 <template>
   <div v-if="message !== ''" class="">
     <span>{{ message }}</span>
   </div>
-  <div v-else class="flex size-full max-w-6xl flex-col items-center gap-2 overflow-y-hidden pt-3">
+  <div
+    v-else
+    class="flex size-full max-w-6xl flex-col items-center gap-2 overflow-y-hidden pt-3"
+  >
     <div class="w-full">
       <span class="text-sm text-muted-foreground">
         Results for "{{ query }}"
       </span>
     </div>
-    <div class="no-scrollbar flex w-full flex-col items-center gap-2 overflow-y-scroll pb-40">
-       <QuerySingleResult
+    <div
+      class="no-scrollbar flex w-full flex-col items-center gap-2 overflow-y-scroll pb-40"
+    >
+      <QuerySingleResult
         v-for="r in results"
         :key="r.id"
         :audio-id="r.id"
@@ -95,26 +99,30 @@ const loadPage = async (page: number) => {
       <div class="mt-4 flex items-center justify-center gap-2">
         <span
           v-if="page > 1"
-          @click="loadPage(page - 1)"
           class="cursor-pointer text-sm"
-        > &lt; </span>
+          @click="loadPage(page - 1)"
+        >
+          &lt;
+        </span>
         <span class="text-sm"> Page {{ page }} of {{ totalPages }} </span>
         <span
           v-if="page < totalPages"
-          @click="loadPage(page + 1)"
           class="cursor-pointer text-sm"
-        > &gt; </span>
+          @click="loadPage(page + 1)"
+        >
+          &gt;
+        </span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 </style>

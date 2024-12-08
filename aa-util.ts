@@ -1,7 +1,7 @@
 export interface Result {
-    id: string;
-    name: string;
-    similarity: number;
+  id: string;
+  name: string;
+  similarity: number;
 }
 
 export interface APIResult {
@@ -12,11 +12,10 @@ export interface APIResult {
 
 export const API_BASE_URL = "https://audioatlas.mosaiq.dev/api/v1/";
 export const API_HEALTH_URL = `${API_BASE_URL}/health`;
-export const API_SEARCH_URL = `${API_BASE_URL}/retrieve/`;//?k=00&query=abc
-export const API_GET_CLIP_URL = `${API_BASE_URL}/audio/file/`;//thisisanid?format=wav|mp3
+export const API_SEARCH_URL = `${API_BASE_URL}/retrieve/`; //?k=00&query=abc
+export const API_GET_CLIP_URL = `${API_BASE_URL}/audio/file/`; //thisisanid?format=wav|mp3
 
 export const MAX_SEARCH_RESULTS = 50;
-
 
 export const fetchHealthCheck = async () => {
   try {
@@ -44,7 +43,7 @@ export const fetchSearchResults = async (count: number, query: string) => {
 
 export const getClipURl = (id: string, format: string) => {
   return `${API_GET_CLIP_URL}${id}?format=${format}`;
-}
+};
 
 export const fetchClip = async (id: string, format: string) => {
   try {
@@ -64,19 +63,22 @@ export const millisecondsToSeconds = (ms: number) => {
   return Math.round(ms / 100) / 10;
 };
 
-
-export const downloadAudioClip = async (id: string, name:string, format: string) => {
-    const blob = await fetchClip(id, format);
-    if (!blob) {
-        console.error("Failed to download audio clip");
-        return;
-    }
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${name}.${format}`;
-    a.click();
-    URL.revokeObjectURL(url);
+export const downloadAudioClip = async (
+  id: string,
+  name: string,
+  format: string,
+) => {
+  const blob = await fetchClip(id, format);
+  if (!blob) {
+    console.error("Failed to download audio clip");
+    return;
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${name}.${format}`;
+  a.click();
+  URL.revokeObjectURL(url);
 };
 
 export const cleanFilename = (filename: string) => {
@@ -91,4 +93,4 @@ export const cleanFilename = (filename: string) => {
     clean += word.charAt(0).toUpperCase() + word.slice(1) + " ";
   }
   return clean.trim();
-}
+};

@@ -30,7 +30,7 @@ const placeholders = [
   "krreeee",
   "tatata",
   "brrrr",
-  "chkchk"
+  "chkchk",
 ];
 const placeholderCycleInterval = 2500;
 
@@ -43,7 +43,6 @@ const cyclePlaceholders = () => {
 onMounted(() => {
   cyclePlaceholders();
 });
-
 
 const searchHandler = async () => {
   if (!editQuery.value) return;
