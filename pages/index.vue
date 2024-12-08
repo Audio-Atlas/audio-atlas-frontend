@@ -11,21 +11,51 @@ watch(
 </script>
 
 <template>
-  <div class="flex h-full flex-col items-center justify-center">
+  <div
+    class="flex size-full flex-col items-center justify-start overflow-hidden"
+  >
     <div
-      class="absolute top-0 flex h-20 w-full items-center justify-between px-8 pt-6"
+      class="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between px-8 pt-6 backdrop-blur"
     >
       <div>
-        <span class="text-2xl">Audio Atlas</span>
+        <a
+          class="flex cursor-pointer flex-row flex-nowrap items-center justify-start"
+          href="/"
+        >
+          <img
+            src="/imgs/AALogo.png"
+            alt="Audio Atlas Logo"
+            class="size-10 object-contain"
+          />
+
+          <span class="ml-2 text-2xl font-semibold">Audio Atlas</span>
+        </a>
       </div>
       <Transition name="fade-up-in">
         <QuerySearchBar v-if="query" :query="query" />
       </Transition>
       <LinkButtonGroup />
     </div>
-    <Transition name="fade-up-out">
-      <HomeSearchBar v-if="!query" :query="query" />
-    </Transition>
+    <div
+      class="relative flex h-screen w-full flex-col items-center justify-center"
+    >
+      <Transition name="fade-up-out">
+        <div v-if="!query" class="fixed top-[30vh] flex flex-col">
+          <h1 class="mb-10 text-center text-4xl font-semibold">
+            Search for the perfect sound effect...
+          </h1>
+          <HomeSearchBar />
+          <div class="mt-2 flex items-center justify-end">
+            <NuxtLink to="/about" class="text-blue-300 underline">
+              How does this work?
+            </NuxtLink>
+          </div>
+        </div>
+      </Transition>
+      <Transition name="fade-up-in">
+        <QuerySearchResultsList v-if="query" :query="query" />
+      </Transition>
+    </div>
   </div>
 </template>
 
