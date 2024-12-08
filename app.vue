@@ -32,5 +32,6 @@ body {
     rgb(29, 31, 59) 63%,
     rgb(39, 60, 95) 100%
   );
+  background-attachment: fixed;
 }
 </style>
