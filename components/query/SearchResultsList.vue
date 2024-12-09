@@ -15,7 +15,7 @@ watch(
 const results = ref<Result[]>([]);
 const message = ref("");
 const playing = ref<string | null>(null);
-const page = ref(1);
+const page = ref(0);
 const totalPages = ref(1);
 const perPage = 10;
 
@@ -40,17 +40,15 @@ const onChangeQuery = async (q: string) => {
   }
 
   try {
-    const res = await fetchSearchResults(perPage, q);
-    if (res.length === 0) {
+    const res = (await fetchSearchResults(q, perPage, page.value)) as APIResult;
+    if (res.totalClips === 0) {
       message.value = `No results found for "${q}"`;
     } else {
-      const apires: APIResult[] = res as APIResult[];
-      results.value = apires.map((r) => {
+      results.value = res.data.map((r) => {
         return {
           id: r.id,
           name: r.name,
-          similarity: 0.0,
-          audio: "",
+          similarity: Math.round(r.similarity * 100),
         };
       });
 
@@ -98,15 +96,15 @@ const loadPage = async (page: number) => {
       />
       <div class="mt-4 flex items-center justify-center gap-2">
         <span
-          v-if="page > 1"
+          v-if="page > 0"
           class="cursor-pointer text-sm"
           @click="loadPage(page - 1)"
         >
           &lt;
         </span>
-        <span class="text-sm"> Page {{ page }} of {{ totalPages }} </span>
+        <span class="text-sm"> Page {{ page + 1 }} of {{ totalPages }} </span>
         <span
-          v-if="page < totalPages"
+          v-if="page+1 < totalPages"
           class="cursor-pointer text-sm"
           @click="loadPage(page + 1)"
         >
