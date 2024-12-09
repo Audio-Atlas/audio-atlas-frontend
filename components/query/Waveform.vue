@@ -96,16 +96,19 @@ const onClick = (e: MouseEvent) => {
     -->
 <template>
   <div
-    class="relative h-[100px] w-full"
+    class="relative size-full"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
     @click="onClick"
   >
-    <div id="bars" class="flex h-[100px] flex-row items-center justify-between">
+    <div
+      id="bars"
+      class="flex h-full max-h-[72px] flex-row items-center justify-between"
+    >
       <div
         v-for="(bar, i) in waveform"
         :key="i"
-        class="inline-block h-[100px] w-[3px] rounded-lg bg-primary"
+        class="inline-block h-full w-[3px] rounded-lg bg-primary"
         :style="{
           height: `${(bar / maxAmplitude) * 100}%`,
         }"

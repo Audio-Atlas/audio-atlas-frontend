@@ -28,6 +28,8 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.2.1",
+    "@iconify-json/proicons": "^1.2.8",
     "@nuxt/eslint": "^0.6.1",
     "@nuxt/icon": "^1.7.2",
     "@nuxtjs/tailwindcss": "^6.12.2",

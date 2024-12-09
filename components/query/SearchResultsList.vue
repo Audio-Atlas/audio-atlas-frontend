@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Result, APIResult } from "~/aa-util";
+import type { APIResult, Result } from "~/aa-util";
 import { fetchHealthCheck, fetchSearchResults } from "~/aa-util";
 
 const route = useRoute();
@@ -17,15 +17,13 @@ const message = ref("");
 const playing = ref<string | null>(null);
 const page = ref(0);
 const totalPages = ref(1);
-const perPage = 10;
+const perPage = 5;
 
 onMounted(() => {
   onChangeQuery(query.value);
 });
 
-const onChangeQuery = async (q: string) => {
-  message.value = "Loading...";
-  query.value = q;
+const fetchResults = async (q: string) => {
   try {
     const health = await fetchHealthCheck();
     if (!health) {
@@ -51,6 +49,7 @@ const onChangeQuery = async (q: string) => {
           similarity: Math.round(r.similarity * 100),
         };
       });
+      totalPages.value = res.totalPages;
 
       message.value = "";
     }
@@ -60,12 +59,25 @@ const onChangeQuery = async (q: string) => {
   }
 };
 
+const onChangeQuery = async (q: string) => {
+  message.value = "Loading...";
+  query.value = q;
+  page.value = 0;
+
+  await fetchResults(q);
+};
+
 const onSetPlaying = (audioId: string | null) => {
   playing.value = audioId;
 };
 
-const loadPage = async (page: number) => {
-  console.log("Loading page", page);
+const loadPage = async (newPage: number) => {
+  if (newPage < 0 || newPage >= totalPages.value) {
+    return;
+  }
+
+  page.value = newPage;
+  await fetchResults(query.value);
 };
 </script>
 
@@ -75,16 +87,14 @@ const loadPage = async (page: number) => {
   </div>
   <div
     v-else
-    class="flex size-full max-w-6xl flex-col items-center gap-2 overflow-y-hidden pt-3"
+    class="flex size-full max-w-6xl flex-col items-center justify-center gap-2 overflow-y-hidden py-6"
   >
     <div class="w-full">
       <span class="text-sm text-muted-foreground">
         Results for "{{ query }}"
       </span>
     </div>
-    <div
-      class="no-scrollbar flex w-full flex-col items-center gap-2 overflow-y-scroll pb-40"
-    >
+    <div class="flex w-full flex-col items-center gap-4">
       <QuerySingleResult
         v-for="r in results"
         :key="r.id"
@@ -104,7 +114,7 @@ const loadPage = async (page: number) => {
         </span>
         <span class="text-sm"> Page {{ page + 1 }} of {{ totalPages }} </span>
         <span
-          v-if="page+1 < totalPages"
+          v-if="page + 1 < totalPages"
           class="cursor-pointer text-sm"
           @click="loadPage(page + 1)"
         >
@@ -114,13 +124,3 @@ const loadPage = async (page: number) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-</style>

@@ -31,13 +31,29 @@ export const fetchHealthCheck = async () => {
   }
 };
 
-export const fetchSearchResults = async (query: string, pageSize:number, pageNumber:number) => {
+export const fetchSearchResults = async (
+  query: string,
+  pageSize: number,
+  pageNumber: number,
+) => {
   try {
-    if (!query || query.trim().length === 0 || pageSize <= 0 || pageNumber < 0) {
-      console.error("Invalid search query or page size or number", query, pageSize, pageNumber);
+    if (
+      !query ||
+      query.trim().length === 0 ||
+      pageSize <= 0 ||
+      pageNumber < 0
+    ) {
+      console.error(
+        "Invalid search query or page size or number",
+        query,
+        pageSize,
+        pageNumber,
+      );
       return [];
     }
-    const res = await fetch(`${API_SEARCH_URL}?query=${query}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
+    const res = await fetch(
+      `${API_SEARCH_URL}?query=${query}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+    );
     return res.json();
   } catch (e: any) {
     console.error("Failed to fetch search results:", e.message);
@@ -85,7 +101,7 @@ export const downloadAudioClip = async (
   URL.revokeObjectURL(url);
 };
 
-export const cleanFilename = (filename: string) => {
+export const cleanFilename = (filename: string, length: number = 80) => {
   // files are stored such as: foley_water_pour_onto_very_hot_metal_sheet_surface_steam_sizzle_bubble_fizzle_out_111202
   // need to split by underscores and capitalize each word, remove random numbers
   const words = filename.split("_");
@@ -96,5 +112,9 @@ export const cleanFilename = (filename: string) => {
     }
     clean += word.charAt(0).toUpperCase() + word.slice(1) + " ";
   }
+  if (clean.length > length) {
+    clean = clean.slice(0, length).trim() + "...";
+  }
+
   return clean.trim();
 };
