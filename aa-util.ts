@@ -5,14 +5,18 @@ export interface Result {
 }
 
 export interface APIResult {
-  id: string;
-  length: string; // 00:00.00 format
-  name: string; // in ugly filename format
+  totalClips: number;
+  totalPages: number;
+  data: {
+    id: string;
+    name: string;
+    similarity: number;
+  }[];
 }
 
 export const API_BASE_URL = "https://audioatlas.mosaiq.dev/api/v1/";
 export const API_HEALTH_URL = `${API_BASE_URL}/health`;
-export const API_SEARCH_URL = `${API_BASE_URL}/retrieve/`; //?k=00&query=abc
+export const API_SEARCH_URL = `${API_BASE_URL}/retrieve/`; //?query=abc&pageSize=10&pageNumber=0
 export const API_GET_CLIP_URL = `${API_BASE_URL}/audio/file/`; //thisisanid?format=wav|mp3
 
 export const MAX_SEARCH_RESULTS = 50;
@@ -27,13 +31,13 @@ export const fetchHealthCheck = async () => {
   }
 };
 
-export const fetchSearchResults = async (count: number, query: string) => {
+export const fetchSearchResults = async (query: string, pageSize:number, pageNumber:number) => {
   try {
-    if (!query || query.trim().length === 0 || count <= 0) {
+    if (!query || query.trim().length === 0 || pageSize <= 0 || pageNumber < 0) {
+      console.error("Invalid search query or page size or number", query, pageSize, pageNumber);
       return [];
     }
-    count = Math.min(count, MAX_SEARCH_RESULTS);
-    const res = await fetch(`${API_SEARCH_URL}?k=${count}&query=${query}`);
+    const res = await fetch(`${API_SEARCH_URL}?query=${query}&pageSize=${pageSize}&pageNumber=${pageNumber}`);
     return res.json();
   } catch (e: any) {
     console.error("Failed to fetch search results:", e.message);
