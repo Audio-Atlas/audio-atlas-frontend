@@ -23,9 +23,10 @@ onMounted(() => {
   onChangeQuery(query.value);
 });
 
-const onChangeQuery = async (q: string) => {
+const onChangeQuery = async (q: string, p = 0) => {
   message.value = "Loading...";
   query.value = q;
+  page.value = p;
   try {
     const health = await fetchHealthCheck();
     if (!health) {
@@ -40,10 +41,11 @@ const onChangeQuery = async (q: string) => {
   }
 
   try {
-    const res = (await fetchSearchResults(q, perPage, page.value)) as APIResult;
+    const res = (await fetchSearchResults(q, perPage, p)) as APIResult;
     if (res.totalClips === 0) {
       message.value = `No results found for "${q}"`;
     } else {
+      totalPages.value = res.totalPages;
       results.value = res.data.map((r) => {
         return {
           id: r.id,
@@ -65,7 +67,9 @@ const onSetPlaying = (audioId: string | null) => {
 };
 
 const loadPage = async (page: number) => {
-  console.log("Loading page", page);
+  window.scrollTo(0, 0);
+  onChangeQuery(query.value, page);
+  
 };
 </script>
 
@@ -97,7 +101,14 @@ const loadPage = async (page: number) => {
       <div class="mt-4 flex items-center justify-center gap-2">
         <span
           v-if="page > 0"
-          class="cursor-pointer text-sm"
+          class="cursor-pointer text-sm hover:text-primary-foreground border border-gray-400 rounded-md px-2 py-1 hover:border-primary-foreground hover:bg-white"
+          @click="loadPage(0)"
+        >
+          &lt;&lt;
+        </span>
+        <span
+          v-if="page > 0"
+          class="cursor-pointer text-sm hover:text-primary-foreground border border-gray-400 rounded-md px-2 py-1 hover:border-primary-foreground hover:bg-white"
           @click="loadPage(page - 1)"
         >
           &lt;
@@ -105,10 +116,17 @@ const loadPage = async (page: number) => {
         <span class="text-sm"> Page {{ page + 1 }} of {{ totalPages }} </span>
         <span
           v-if="page+1 < totalPages"
-          class="cursor-pointer text-sm"
+          class="cursor-pointer text-sm hover:text-primary-foreground border border-gray-400 rounded-md px-2 py-1 hover:border-primary-foreground hover:bg-white"
           @click="loadPage(page + 1)"
         >
           &gt;
+        </span>
+        <span
+          v-if="page+1 < totalPages"
+          class="cursor-pointer text-sm hover:text-primary-foreground border border-gray-400 rounded-md px-2 py-1 hover:border-primary-foreground hover:bg-white"
+          @click="loadPage(totalPages - 1)"
+        >
+          &gt;&gt;
         </span>
       </div>
     </div>

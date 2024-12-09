@@ -91,7 +91,10 @@ export const cleanFilename = (filename: string) => {
   const words = filename.split("_");
   let clean = "";
   for (const word of words) {
-    if (word.length === 0 || !isNaN(Number(word))) {
+    if (word.length === 0) {
+      continue;
+    }
+    if (word.match(/[^a-zA-Z]/)) {
       continue;
     }
     clean += word.charAt(0).toUpperCase() + word.slice(1) + " ";
