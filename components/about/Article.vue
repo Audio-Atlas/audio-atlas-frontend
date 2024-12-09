@@ -71,28 +71,36 @@
     </h2>
     <p class="leading-7 [&:not(:first-child)]:mt-6">
       Audio Atlas is built using the following technologies:
-      <ul class="my-6 ml-6 list-disc [&>li]:mt-2">
-        <li>Frontend: <NuxtLink
-        external
-        to="https://nuxt.com/"
-        class="font-medium text-primary underline underline-offset-4"
-      >
-        Nuxt (Vue)
-      </NuxtLink></li>
-        <li>Backend: <NuxtLink
-        external
-        to="https://python-poetry.org/"
-        class="font-medium text-primary underline underline-offset-4"
-      >
-        Poetry
-      </NuxtLink> and <NuxtLink
-        external
-        to="https://palletsprojects.com/projects/flask/"
-        class="font-medium text-primary underline underline-offset-4"
-      >
-        Flask
-      </NuxtLink></li>
-      </ul>
     </p>
+    <ul class="ml-6 list-disc [&>li]:mt-2">
+      <li>
+        Frontend:
+        <NuxtLink
+          external
+          to="https://nuxt.com/"
+          class="font-medium text-primary underline underline-offset-4"
+        >
+          Nuxt (Vue)
+        </NuxtLink>
+      </li>
+      <li>
+        Backend:
+        <NuxtLink
+          external
+          to="https://python-poetry.org/"
+          class="font-medium text-primary underline underline-offset-4"
+        >
+          Poetry
+        </NuxtLink>
+        and
+        <NuxtLink
+          external
+          to="https://palletsprojects.com/projects/flask/"
+          class="font-medium text-primary underline underline-offset-4"
+        >
+          Flask
+        </NuxtLink>
+      </li>
+    </ul>
   </article>
 </template>
