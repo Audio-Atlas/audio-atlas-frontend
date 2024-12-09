@@ -1,5 +1,5 @@
 <template>
-  <Button variant="ghost" size="icon" as-child>
+  <Button variant="ghost" size="icon" as-child class="hover:bg-primary/40">
     <slot />
   </Button>
 </template>

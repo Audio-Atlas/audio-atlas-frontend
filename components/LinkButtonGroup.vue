@@ -1,7 +1,6 @@
 <template>
   <div class="flex w-[120px] items-center justify-between">
     <LinkButton>
-      <!-- TODO: change to actual url -->
       <NuxtLink to="https://github.com/Audio-Atlas">
         <Icon name="proicons:github" class="size-8" />
       </NuxtLink>

@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import {
-  millisecondsToSeconds,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  cleanFilename,
   downloadAudioClip,
   fetchClip,
-  cleanFilename,
+  millisecondsToSeconds,
 } from "~/aa-util";
 
 const props = defineProps<{
@@ -133,7 +139,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="flex h-[300px] w-full flex-row items-center gap-4 border px-6 py-4"
+    class="flex h-1/5 w-full flex-row items-center gap-4 rounded-md border border-primary/75 px-6 py-4"
   >
     <div class="flex w-1/12 items-center gap-2">
       <button @click="() => onSetPlayingAudio(!playingClip, playhead)">
@@ -141,19 +147,32 @@ onUnmounted(() => {
           :name="
             playingClip ? 'mdi:pause-circle-outline' : 'mdi:play-circle-outline'
           "
-          :class="
-            'size-20 pointer mr-4 hover:text-primary ' +
-            (playingClip ? 'text-primary' : 'text-muted-foreground')
-          "
+          class="size-20 cursor-pointer transition-all duration-200 hover:text-primary"
+          :class="{
+            'text-primary': playingClip,
+            'text-muted-foreground': !playingClip,
+          }"
         />
       </button>
     </div>
-    <div class="flex w-9/12 flex-col items-start gap-4">
-      <h3 class="w-full truncate text-lg font-bold">
-        {{ cleanFilename(props.name) }}
-      </h3>
-      <div class="flex w-full flex-row items-start gap-4">
-        <div class="flex w-1/6 flex-col items-center gap-4">
+    <div class="flex h-24 w-9/12 flex-col items-start gap-4">
+      <TooltipProvider class="h-1/3">
+        <Tooltip>
+          <TooltipTrigger>
+            <h3 class="w-full text-lg font-bold">
+              {{ cleanFilename(props.name) }}
+            </h3>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>
+              {{ props.name }}
+            </p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
+      <div class="flex w-full flex-row items-center gap-4">
+        <div class="flex w-1/6 flex-col items-center gap-1">
           <p class="w-full text-sm">
             {{ millisecondsToSeconds(clipDuration * 1000) }}s
           </p>
@@ -168,19 +187,24 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <div class="ml-8 flex w-2/12 items-center gap-4">
-      <button
-        class="border border-white px-6 py-4 text-primary"
+    <div class="ml-4 flex items-center gap-4">
+      <Button
+        variant="ghost"
+        class="bg-transparent hover:bg-primary hover:text-primary-foreground"
+        size="lg"
         @click="() => onDownloadClip('mp3')"
       >
-        <p>Mp3</p>
-      </button>
-      <button
-        class="border border-white px-6 py-4 text-primary"
+        MP3
+      </Button>
+
+      <Button
+        variant="ghost"
+        class="bg-transparent hover:bg-primary hover:text-primary-foreground"
+        size="lg"
         @click="() => onDownloadClip('wav')"
       >
-        <p>Wav</p>
-      </button>
+        WAV
+      </Button>
     </div>
   </div>
 </template>
