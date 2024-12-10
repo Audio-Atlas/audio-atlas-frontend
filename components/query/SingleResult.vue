@@ -142,17 +142,13 @@ onUnmounted(() => {
     class="flex h-1/5 w-full flex-row items-center gap-4 rounded-md border border-primary/75 px-6 py-4"
   >
     <div class="flex w-1/12 items-center gap-2">
-      <button @click="() => onSetPlayingAudio(!playingClip, playhead)">
-        <Icon
-          :name="
-            playingClip ? 'mdi:pause-circle-outline' : 'mdi:play-circle-outline'
-          "
-          class="size-20 cursor-pointer transition-all duration-200 hover:text-primary"
-          :class="{
-            'text-primary': playingClip,
-            'text-muted-foreground': !playingClip,
-          }"
-        />
+      <button
+        class="size-20 cursor-pointer text-muted-foreground transition-all duration-200 hover:text-primary"
+        :class="{ 'text-primary': playingClip }"
+        @click="() => onSetPlayingAudio(!playingClip, playhead)"
+      >
+        <IconsPlayCircleOutline v-if="!playingClip" class="size-full" />
+        <IconsPauseCircleOutline v-else class="size-full" />
       </button>
     </div>
     <div class="flex h-24 w-9/12 flex-col items-start gap-4">
