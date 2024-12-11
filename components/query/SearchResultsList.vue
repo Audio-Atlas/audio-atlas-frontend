@@ -87,7 +87,7 @@ const loadPage = async (newPage: number) => {
   </div>
   <div
     v-else
-    class="flex size-full max-w-6xl flex-col items-center justify-center gap-2 overflow-y-hidden py-6"
+    class="flex w-full max-w-6xl flex-col items-center justify-center gap-2 py-8"
   >
     <div class="w-full">
       <span class="text-sm text-muted-foreground">

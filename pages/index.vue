@@ -36,9 +36,7 @@ watch(
       </Transition>
       <LinkButtonGroup />
     </div>
-    <div
-      class="relative flex h-screen w-full flex-col items-center justify-center"
-    >
+    <div class="relative flex size-full flex-col items-center">
       <Transition name="fade-up-out">
         <div v-if="!query" class="fixed top-[30vh] flex flex-col">
           <h1 class="mb-10 text-center text-4xl font-semibold">
