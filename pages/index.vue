@@ -12,7 +12,7 @@ watch(
 
 <template>
   <div
-    class="flex size-full flex-col items-center justify-start overflow-hidden"
+    class="flex size-full flex-col items-center justify-start overflow-y-auto"
   >
     <div
       class="sticky top-0 z-50 flex h-[60px] w-full items-center justify-between px-8 pt-6 backdrop-blur"
